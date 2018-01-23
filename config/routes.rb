@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :tasks, only: [:index, :new, :show, :edit, :create]
+  resources :tasks, only: [:index, :new, :show, :edit, :create, :update]
 
 
   #get 'tasks' => 'tasks#index'
