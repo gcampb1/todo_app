@@ -67,4 +67,39 @@ describe 'GET #index' do
     end
   end
 
+  describe 'POST #create' do
+    let(:user) {create(:user)}
+    let(:valid_attributes) { attributes_for(:email, user_id: user.id) }
+    let (:invalid_attributes) { attributes_for(:invalid_task ) }
+
+
+    context 'with valid attributes' do
+      it 'persists new task' do
+        expect {
+          post :create, params: { task: valid_attributes }
+        }.to change(Task, :count).by(1)
+      end
+
+      it 'redirects to the show view' do
+        post :create, params: { task: valid_attributes}
+
+        expect(response).to redirect_to(assigns(:task))
+      end
+    end
+
+    context 'with invalid attributes' do
+      it 'returns false and rejects the task' do
+        expect {
+          post :create, params: { task: invalid_attributes}
+        }.not_to change(Task, :count)
+      end
+
+      it 're-renders the :new template' do
+        post :create, params: {task: invalid_attributes }
+
+        expect(response).to render_template(:new)
+      end
+    end
+  end
+
 end

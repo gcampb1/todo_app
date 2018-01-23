@@ -14,9 +14,9 @@ FactoryBot.define do
   end
 
   factory :invalid_task, class: Task do
-    association nil
+    association :user
     name nil
+    due_date { DateTime.now }
     priority nil
-    due_date nil
   end
 end
